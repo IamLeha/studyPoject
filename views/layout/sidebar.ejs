@@ -1,0 +1,56 @@
+<div class="sidebar">
+    <div class="box auth">
+      <% if(!user.id && !user.login) { %>
+        <form method="post" class="login">
+          <h2 class="form-title">Вход</h2>
+          <div class="form-group">
+            <label for="login-login">Логин</label>
+            <input type="text" id="login-login" name="login" />
+          </div>
+          <div class="form-group">
+            <label for="login-password">Пароль</label>
+            <input type="password" id="login-password" name="password" />
+          </div>
+          <div class="buttons">
+            <button class="switch-button secondary-inverse">Регистрация</button>
+            <button class="login-button">Войти</button>
+          </div>
+        </form>
+        <form method="post" class="register">
+          <h2 class="form-title">Регистрация</h2>
+          <div class="form-group">
+            <label for="register-login">Логин</label>
+            <input type="text" id="register-login" name="login" />
+          </div>
+          <div class="form-group">
+            <label for="register-password">Пароль</label>
+            <input type="password" id="register-password" name="password" />
+          </div>
+          <div class="form-group">
+            <label for="register-password-confirm">Повтори пароль</label>
+            <input type="password" id="register-password-confirm" name="passwordConfirm" />
+          </div>
+          <div class="buttons">
+            <button class="switch-button secondary-inverse">Вход</button>
+            <button class="register-button">Регистрация</button>
+          </div>
+        </form>
+        <% } else { %>
+          <div class="auth-list">
+            <a href="/users/<%= user.login %>" class="after-icon user-icon">
+              <span><%= user.login %></span>
+            </a>
+            <a href="/post/add" class="after-icon add-icon">
+              <span>Добавить пост</span>
+            </a>
+            <a href="/api/auth/logout" class="after-icon exit-icon"> 
+              <span >Выйти</span>
+            </a>
+          </div>
+          <% } %>
+  
+    </div>
+    <div class="box">
+      box
+    </div>
+  </div>

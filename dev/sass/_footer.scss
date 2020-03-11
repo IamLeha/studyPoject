@@ -1,0 +1,75 @@
+.top-footer{
+  display: flex;
+  justify-content: space-between;
+  padding: 4% 0;
+}
+.service-container{
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 14px;
+}
+.right-service{
+  margin-left: 50px;
+}
+.right-about{
+  margin-left: 50px;
+}
+.about-container{
+  display: flex;
+  justify-content: space-between;
+  padding-top: 20px;
+  margin-right:12px; 
+}
+.rest{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  
+}
+.rest-1{
+  display: flex;
+  align-items: center;
+}
+.rest-1 img{
+  width: 25px;
+}
+.rest-1 p {
+  margin-left:10px; 
+}
+.social{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+.social img{
+  width: 34px;
+}
+
+footer{
+  margin-top: 80px;
+  background: url('../img/cashback-section-bg.png') repeat-x;
+  background-size: 1940px 569px;
+  background-position: top;
+  width: 100%;
+  color: $whiteColor;
+}
+.footer-container{
+  width: 80%;
+  margin: 0 auto;
+}
+.bottom-footer{
+  border-top: 1px solid silver;
+  width: 80%;
+  margin: 0 auto;
+  padding: 2.5% 0;
+}
+
+.footer-title{
+  margin: 0;
+}
+
+.subtitle-rest{
+ margin-bottom: 0;
+}

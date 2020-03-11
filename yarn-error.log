@@ -1,0 +1,57 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js init
+
+PATH: 
+  C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\dimon\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Windows\System32\OpenSSH;C:\Program Files\Java\jdk-13.0.2\bin;C:\Program Files\nodejs;C:\Program Files\Git\cmd;C:\Program Files (x86)\Yarn\bin;C:\Users\dimon\AppData\Local\Microsoft\WindowsApps;C:\Users\dimon\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\dimon\AppData\Roaming\npm;C:\Users\dimon\AppData\Local\Yarn\bin
+
+Yarn version: 
+  1.22.0
+
+Node version: 
+  12.14.1
+
+Platform: 
+  win32 x64
+
+Trace: 
+  SyntaxError: C:\Users\dimon\OneDrive\Рабочий стол\Новая папка\portalNodeJs-master\package.json: Unexpected token } in JSON at position 617
+      at JSON.parse (<anonymous>)
+      at C:\Program Files (x86)\Yarn\lib\cli.js:1625:59
+      at Generator.next (<anonymous>)
+      at step (C:\Program Files (x86)\Yarn\lib\cli.js:310:30)
+      at C:\Program Files (x86)\Yarn\lib\cli.js:321:13
+
+npm manifest: 
+  {
+    "name": "blog",
+    "version": "1.0.0",
+    "main": "index.js",
+    "author": "dyatchin <dyacthin@d-partners.ru>",
+    "license": "MIT",
+    "scripts": {
+      "start": "node app.js",
+      "dev": "gulp & nodemon app.js"
+    },
+    "devDependencies": {
+      "eslint": "^6.8.0",
+      "eslint-config-prettier": "^6.10.0",
+      "eslint-plugin-node": "^11.0.0",
+      "gulp": "^4.0.2",
+      "gulp-autoprefixer": "^7.0.1",
+      "gulp-concat": "^2.6.1",
+      "gulp-cssnano": "^2.1.3",
+      "gulp-plumber": "^1.2.1",
+      "gulp-sass": "^4.0.2",
+      "gulp-uglify-es": "^2.0.0",
+      "nodemon": "^2.0.2"
+    },
+    "engines": {
+      "node": ">=9.0.0"
+    },
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
