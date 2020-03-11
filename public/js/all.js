@@ -106,6 +106,27 @@ $(function() {
     removeErrors();
   });
 
+  // delete
+  /*$('.cross-icon').on('click', function(e) {
+    e.preventDefault();
+    removeErrors();
+
+    var data = {
+      postId: $('.cross-icon').data('id')
+    };
+  
+      $.ajax({
+      type: 'POST',
+      data: JSON.stringify(data),
+      contentType: 'application/json',
+      url: `/post/delete/`, // `/post/delete/'${data.postId}`
+    }).done(function(data) {
+      console.log(data)
+    })
+
+  })*/
+
+
   // publish
   $('.publish-button, .save-button').on('click', function(e) {
     e.preventDefault();
@@ -122,8 +143,6 @@ $(function() {
       isDraft: isDraft,
       postId: $('#post-id').val()
     };
-
-    console.log(data)
 
     $.ajax({
       type: 'POST',
@@ -168,7 +187,9 @@ $(function() {
       success: function(data) {
         console.log(data);
         $('#fileinfo').prepend(
-          '<div class="img-container"><img src="/uploads' +
+          '<div class="img-container" id="' +
+            data.id +
+            '"><img src="/uploads' +
             data.filePath +
             '" alt="" /></div>'
         );
@@ -180,7 +201,8 @@ $(function() {
   });
 
   // inserting image
-  $('.img-container').on('click', function() {
+  // $('.img-container').on('click', function() {
+  $('body').on('click', '.img-container', function() {
     var imageId = $(this).attr('id');
     var txt = $('#post-body');
     var caretPos = txt[0].selectionStart;

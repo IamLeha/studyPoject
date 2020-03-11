@@ -7,26 +7,29 @@
       <div class="post">
         <div class="top">
           <h2>
-            <a href="/posts/<%=posts[i].url %>">
-              <%=posts[i].title %>
+            <a href="/posts/<%= posts[i].url %>">
+              <%= posts[i].title %>
             </a>
             <% if (posts[i].owner.login === user.login) { %>
-            <a class="change-icon" style="color: black;text-decoration: none;" href="/post/edit/<%=posts[i].id %>"></a>
-            <% } %>
+            <a href="/post/edit/<%= posts[i].id %>">✎</a>
           </h2>
+          <!-- <div class="cross-icon" data-id="<%= posts[i].id %>"></div> -->
+ 
+          <a class="cross-icon" href="/post/delete/<%= posts[i].id %>">✎</a>
+          <% } %>
         </div>
         <div class="body">
-          <%-posts[i].body %>
+          <%- posts[i].body %>
         </div>
         <div class="bottom">
           <div class="author">
             Автор:
-            <a href="/users/<%=posts[i].owner.login %>">
-              <%=posts[i].owner.login %>
+            <a href="/users/<%= posts[i].owner.login %>">
+              <%= posts[i].owner.login %>
             </a>
           </div>
-          <a href="/posts/<%=posts[i].url %>#<%=posts[i].id %>">Комментарии:
-            <%=posts[i].commentCount %>
+          <a href="/posts/<%= posts[i].url %>#<%= posts[i].id %>">Комментарии:
+            <%= posts[i].commentCount %>
           </a>
         </div>
       </div>
@@ -42,7 +45,10 @@
         <% if (pages > 0 && current < pages) { %>
         <a class="old" href="/archive/<%= Number(current) + 1 %>">К старым →</a>
         <% } %>
+
       </div>
+
+
     </div>
 
     <%- include ('../layout/sidebar.ejs') %>

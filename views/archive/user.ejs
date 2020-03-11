@@ -2,44 +2,112 @@
 
 <div class="main">
   <div class="container">
-    <div class="content">
-      <% for (var i = 0; i < posts.length; i++) { %>
-      <div class="post">
-        <div class="top">
-          <h2>
-            <a href="/posts/<%=posts[i].url %>">
-              <%=posts[i].title %>
-            </a>
-          </h2>
-        </div>
-        <div class="body">
-          <%-posts[i].body %>
-        </div>
-        <div class="bottom">
-          <div class="author">
+      <div class="content">
+          <% for (var i = 0; i < posts.length; i++) { %>
+          <div class="post">
+              <div class="top">
+                  <h2>
+                      <a href="/posts/<%= posts[i].url %>">
+                          <%= posts[i].title %>
+                      </a>
+                      <% if (posts[i].owner.login === user.login) { %>
+                      <a class="edit <%='user' %>"
+                         href="/post/edit/<%= posts[i].id %>">✎</a>
+                      <% } %>
+                  </h2>
+              </div>
+              <div class="body">
+                  <%- posts[i].body %>
+              </div>
+              <div class="bottom">
+                  <% if (posts[i].status === 'moderated' && posts[i].owner.login === user.login) { %>
+                  <span class="moderated">
+                На главной появится после модерации.
+              </span>
+                  <% } %>
+                  <a href="/posts/<%= posts[i].url %>#<%= posts[i].id %>">Комментарии:
+                    <%= posts[i].commentCount %>
+                  </a>
+              </div>
           </div>
-          <a href="/">Комментарии</a>
-        </div>
-      </div>
-      <% } %>
+          <% } %>
 
-      <div class="pagination">
-        <% if (current > 2) { %>
-        <a class="new" href="/users/<%=_user.login %>/<%= Number(current) - 1 %>">← К новым</a>
-        <% } %>
-        <% if (current == 2) { %>
-        <a class="new" href="/users/<%=_user.login %>">← На первую</a>
-        <% } %>
-        <% if (pages > 0 && current < pages) { %>
-        <a class="old" href="/users/<%=_user.login %>/<%= Number(current) + 1 %>">К старым →</a>
-        <% } %>
+          <div class="pagination">
+              <% if (current > 2) { %>
+              <a class="new" href="/users/<%= _user.login %>/<%= Number(current) - 1 %>">← К новым</a>
+              <% } %>
+              <% if (current == 2) { %>
+              <a class="new" href="/users/<%= _user.login %>">← На первую</a>
+              <% } %>
+              <% if (pages > 0 && current < pages) { %>
+              <a class="old" href="/users/<%= _user.login %>/<%= Number(current) + 1 %>">К старым →</a>
+              <% } %>
 
+          </div>
       </div>
-    </div>
 
     <%- include ('../layout/sidebar.ejs') %>
 
   </div>
 </div>
-
-<%- include ('../layout/footer.ejs) %>
+<footer>
+    <div class="footer-container">
+       <div class="top-footer">
+           <div class="service">
+               <h3 class="footer-title">Services</h3>
+               <div class="service-container">
+                   <div class="left-service">
+                       <p>How to order</p>
+                       <p>Refact</p>
+                       <p>Public offer</p>
+                       <p>Delivery</p>
+                   </div>
+                   <div class="right-service">
+                       <p>Payment</p>
+                       <p>Regulations</p>
+                       <p>Refund</p>
+                       <p>Quesions and answers</p>
+                   </div>
+               </div>
+           </div>
+           <div class="about">
+               <h3 class="footer-title">About company</h3>
+               <div class="about-container">
+                   <div class="left-about">
+                       <p>About us</p>
+                       <p>Contacts</p>
+                       <p>Vacancies</p>
+                       <p>Partners</p>
+                   </div>
+                   <div class="right-about">
+                       <p>Certificates</p>
+                       <p>Abvantages</p>
+                       <p>Discounts</p>
+                   </div>
+               </div>
+           </div>
+           <div class="rest">
+               <div class="rest-1">
+                   <img  src="../img/if_checkmark-24_103184.svg" alt="">
+                   <p class="subtitle-rest">Free pudlicate</p>
+               </div>
+               <div class="rest-1">
+                   <img src="../img/samples.svg" alt="">
+                      <p class="subtitle-rest">Samplers as a gift with each purchase</p></p>
+               </div>
+               <div class="rest-1">
+                   <img src="../img/cup.svg" alt="">
+                   <p class="subtitle-rest">Shares and gifts for purchase</p>
+               </div>
+           </div>
+           <div class="social">
+               <a href="#"><img src="../img/facebook.svg" alt="" ></a>
+               <a href="#"><img src="../img/twitter.svg" alt=""></a>
+               <a href="#"><img src="../img/instagram.svg" alt=""></a>
+           </div>
+       </div>
+   </div>
+   <div class="bottom-footer">
+       <p>Copyright &copy BLOG</p>
+   </div>
+  </footer>

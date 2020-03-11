@@ -8,8 +8,7 @@ const config = require('../config');
 const models = require('../models');
 
 async function posts(req, res) {
-  const userId = req.session.userId;
-  const userLogin = req.session.userLogin;
+  const { userId, userLogin, userRole } = req.session;
   const perPage = +config.PER_PAGE;
   const page = req.params.page || 1;
 
@@ -31,7 +30,7 @@ async function posts(req, res) {
         post.uploads.forEach(upload => {
           body = body.replace(
             `image${upload.id}`,
-            `/${config.DESTINATION}${upload.path}`
+            `/${config.UPLOADS_ROUTE}${upload.path}`
           );
         });
       }
@@ -45,14 +44,21 @@ async function posts(req, res) {
 
     const count = await models.Post.count();
 
+    const siteName =
+      page === 1
+        ? `${config.SITE_NAME} — Костыли и велосипеды!`
+        : `Страница ${page} — ${config.SITE_NAME}`;
+
     res.render('archive/index', {
       posts,
       current: page,
       pages: Math.ceil(count / perPage),
       user: {
         id: userId,
-        login: userLogin
-      }
+        login: userLogin,
+        role: userRole
+      },
+      siteName
     });
   } catch (error) {
     throw new Error('Server Error');
@@ -76,8 +82,10 @@ router.get('/posts/:post', async (req, res, next) => {
     try {
       const post = await models.Post.findOne({
         url,
-        status: 'published'
-      }).populate('uploads');
+        status: { $ne: 'draft' }
+      })
+        .populate('uploads')
+        .populate('owner');
 
       if (!post) {
         const err = new Error('Not Found');
@@ -108,7 +116,7 @@ router.get('/posts/:post', async (req, res, next) => {
           post.uploads.forEach(upload => {
             body = body.replace(
               `image${upload.id}`,
-              `/${config.DESTINATION}${upload.path}`
+              `/${config.UPLOADS_ROUTE}${upload.path}`
             );
           });
         }
@@ -122,7 +130,8 @@ router.get('/posts/:post', async (req, res, next) => {
           user: {
             id: userId,
             login: userLogin
-          }
+          },
+          siteName: `${post.title} — ${config.SITE_NAME}`
         });
       }
     } catch (error) {
@@ -133,8 +142,7 @@ router.get('/posts/:post', async (req, res, next) => {
 
 // users posts
 router.get('/users/:login/:page*?', async (req, res) => {
-  const userId = req.session.userId;
-  const userLogin = req.session.userLogin;
+  const { userId, userLogin, userRole } = req.session;
   const perPage = +config.PER_PAGE;
   const page = req.params.page || 1;
   const login = req.params.login;
@@ -145,11 +153,13 @@ router.get('/users/:login/:page*?', async (req, res) => {
     });
 
     let posts = await models.Post.find({
-      owner: user.id
+      owner: user.id,
+      status: { $ne: 'draft' }
     })
       .skip(perPage * page - perPage)
       .limit(perPage)
       .sort({ createdAt: -1 })
+      .populate('owner')
       .populate('uploads');
 
     const count = await models.Post.count({
@@ -160,11 +170,12 @@ router.get('/users/:login/:page*?', async (req, res) => {
 
     posts = posts.map(post => {
       let body = post.body;
+
       if (post.uploads.length) {
         post.uploads.forEach(upload => {
           body = body.replace(
             `image${upload.id}`,
-            `/${config.DESTINATION}${upload.path}`
+            `/${config.UPLOADS_ROUTE}${upload.path}`
           );
         });
       }
@@ -174,6 +185,11 @@ router.get('/users/:login/:page*?', async (req, res) => {
       });
     });
 
+    const siteName =
+      page === 1
+        ? `Посты юзера ${login} — ${config.SITE_NAME}`
+        : `Посты юзера ${login}, страница ${page} — ${config.SITE_NAME}`;
+
     res.render('archive/user', {
       posts,
       _user: user,
@@ -181,10 +197,13 @@ router.get('/users/:login/:page*?', async (req, res) => {
       pages: Math.ceil(count / perPage),
       user: {
         id: userId,
-        login: userLogin
-      }
+        login: userLogin,
+        role: userRole
+      },
+      siteName
     });
   } catch (error) {
+    console.log(error);
     throw new Error('Server Error');
   }
 });
