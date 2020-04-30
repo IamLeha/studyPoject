@@ -34,7 +34,7 @@
     "express-session": "^1.17.0",
     "faker": "^4.1.0",
     "gm": "^1.23.1",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "mkdirp": "^1.0.3",
     "moment": "^2.24.0",
     "mongodb": "^3.5.4",
